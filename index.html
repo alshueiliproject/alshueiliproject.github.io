@@ -1,19 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="/">
 
   <meta charset="UTF-8">
@@ -27,12 +16,60 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>test_web</title>
+  <title>Maonah</title>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
   <script src="flutter_bootstrap.js" async></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getMessaging, getToken, onMessage } from "firebase/messaging";
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZkcQ3UdXxEYDsUwajL_yYkZTtawnb2JE",
+      authDomain: "maonah-application.firebaseapp.com",
+      projectId: "maonah-application",
+      storageBucket: "maonah-application.appspot.com",
+      messagingSenderId: "736387267996",
+      appId: "1:736387267996:web:fdbd72acbb905dece1dc59"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const messaging = getMessaging(fapp);
+    getToken(messaging, {
+      vapidKey:
+        "AAAAq3QZ_Zw:APA91bE324vUZgl7N4Dv2gs_wiUz5Wb7-D9NUC61w7zB1I5dBarkGKeaiLPFnK6rDuNgpreuJc_SKyE9l2ZmjAzLuLgeiMB5QpOX7DxuR4q5nZQuBXqpJuN7ls7G8Skr92zRnjMVHu_f",
+    })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log("Firebase Token", currentToken);
+        } else {
+          // Show permission request UI
+          console.log(
+            "No registration token available. Request permission to generate one."
+          );
+          // ...
+        }
+      })
+      .catch((err) => {
+        console.log("An error occurred while retrieving token. ", err);
+        // ...
+      });
+
+    onMessage(messaging, (payload) => {
+      console.log("Message received. ", payload);
+      // ...
+    });
+
+  </script>
+
+
 </body>
+
 </html>
+
+
