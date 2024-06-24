@@ -4,7 +4,8 @@
 <head>
 
 
- <!-- <base href="https://alshueiliproject.github.io/maonahwebapp"> -->
+  <!-- <base href="https://alshueiliproject.github.io/maonahwebapp"> -->
+  <base href="/">
  
 
 
@@ -26,7 +27,7 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = ""2866278759"";
+    const serviceWorkerVersion = ""837552269"";
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
@@ -34,7 +35,16 @@
 
 <body>
   <script src="flutter_bootstrap.js" async></script>
-
+ 
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      // navigator.serviceWorker.register("/flutter_service_worker.js");
+      navigator.serviceWorker.register("/firebase-messaging-sw.js");
+    });
+  }
+  </script>
+ 
   <script defer>
     window.addEventListener('load', function (ev) {
       // Download main.dart.js
@@ -80,36 +90,36 @@
       messagingSenderId: "736387267996",
       appId: "1:736387267996:web:fdbd72acbb905dece1dc59"
     };
- 
+
     const app = initializeApp(firebaseConfig);
     const messaging = getMessaging(fapp);
     getToken(messaging, {
-  vapidKey:
-    "AAAAq3QZ_Zw:APA91bE324vUZgl7N4Dv2gs_wiUz5Wb7-D9NUC61w7zB1I5dBarkGKeaiLPFnK6rDuNgpreuJc_SKyE9l2ZmjAzLuLgeiMB5QpOX7DxuR4q5nZQuBXqpJuN7ls7G8Skr92zRnjMVHu_f",
-})
-  .then((currentToken) => {
-    if (currentToken) {
-      console.log("Firebase Token", currentToken);
-    } else {
-      // Show permission request UI
-      console.log(
-        "No registration token available. Request permission to generate one."
-      );
-      // ...
-    }
-  })
-  .catch((err) => {
-    console.log("An error occurred while retrieving token. ", err);
-    // ...
-  });
+      vapidKey:
+        "AAAAq3QZ_Zw:APA91bE324vUZgl7N4Dv2gs_wiUz5Wb7-D9NUC61w7zB1I5dBarkGKeaiLPFnK6rDuNgpreuJc_SKyE9l2ZmjAzLuLgeiMB5QpOX7DxuR4q5nZQuBXqpJuN7ls7G8Skr92zRnjMVHu_f",
+    })
+      .then((currentToken) => {
+        if (currentToken) {
+          console.log("Firebase Token", currentToken);
+        } else {
+          // Show permission request UI
+          console.log(
+            "No registration token available. Request permission to generate one."
+          );
+          // ...
+        }
+      })
+      .catch((err) => {
+        console.log("An error occurred while retrieving token. ", err);
+        // ...
+      });
 
-onMessage(messaging, (payload) => {
-  console.log("Message received. ", payload);
-  // ...
-});
+    onMessage(messaging, (payload) => {
+      console.log("Message received. ", payload);
+      // ...
+    });
 
   </script>
-  
+
 
 </body>
 
